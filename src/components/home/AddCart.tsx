@@ -1,6 +1,45 @@
-import React, { useRef, useEffect } from 'react';
-import { View, Button, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useRef, useEffect, useCallback, useState } from 'react';
+import { View, Button, Text, Image, TouchableOpacity, StyleSheet, ListRenderItem, SafeAreaView } from 'react-native';
+import Carousel from 'react-native-banner-carousel-updated';
 import RBSheet from "react-native-raw-bottom-sheet";
+
+const exampleItems = [
+    {
+        title: 'Item 1',
+        text: 'Text 1',
+    },
+    {
+        title: 'Item 2',
+        text: 'Text 2',
+    },
+    {
+        title: 'Item 3',
+        text: 'Text 3',
+    },
+    {
+        title: 'Item 4',
+        text: 'Text 4',
+    },
+    {
+        title: 'Item 5',
+        text: 'Text 5',
+    },
+];
+
+const descriptionData = [
+    {
+        text: 'A perfurm that captures hearts is beautiful thing for everyone.'
+    },
+    {
+        text: 'A perfurm that captures hearts is beautiful thing for everyone.'
+    },
+    {
+        text: 'A perfurm that captures hearts is beautiful thing for everyone.'
+    },
+    {
+        text: 'A perfurm that captures hearts is beautiful thing for everyone.'
+    }
+]
 
 const AddCart = ({ isVisible, setCart, setVisibleState }: { isVisible: boolean, setCart: any, setVisibleState: any }) => {
 
@@ -8,7 +47,7 @@ const AddCart = ({ isVisible, setCart, setVisibleState }: { isVisible: boolean, 
 
     useEffect(() => {
         if (isVisible) refRBSheet.current.open();
-    }, [isVisible])
+    }, [isVisible]);
 
     return (
         <RBSheet
@@ -18,6 +57,9 @@ const AddCart = ({ isVisible, setCart, setVisibleState }: { isVisible: boolean, 
             closeDuration={250}
             customStyles={{
                 container: styles.container
+            }}
+            onClose={() => {
+                setVisibleState();
             }}
         >
             <TouchableOpacity onPress={() => {
@@ -30,9 +72,18 @@ const AddCart = ({ isVisible, setCart, setVisibleState }: { isVisible: boolean, 
                 />
             </TouchableOpacity>
             <View style={styles.carousel} >
-                <Text>
-                    Carousel Area
-                </Text>
+                <Carousel
+                    loop
+                >
+                    {exampleItems.map((item, index) => (
+                        <View style={styles.carouselSlide} key={index}>
+                            <Image
+                                source={require('../../../assets/glasses.png')}
+                                style={{ width: '100%', height: '100%' }}
+                            />
+                        </View>
+                    ))}
+                </Carousel>
             </View>
             <View style={styles.dataInfo} >
                 <View style={styles.noteLine}>
@@ -104,7 +155,13 @@ const AddCart = ({ isVisible, setCart, setVisibleState }: { isVisible: boolean, 
                     Description
                 </Text>
                 <View style={styles.descriptionLineContent}>
-
+                    {descriptionData.map((item, index) => (
+                        <Text style={styles.descriptionLineText} key={index}>
+                            {
+                                item.text.toString().length > 25 ? item.text.toString().substring(0, 25) + '...' : item.text
+                            }
+                        </Text>
+                    ))}
                 </View>
             </View>
             <View style={styles.buttonLine}>
@@ -144,8 +201,13 @@ const styles = StyleSheet.create({
         paddingTop: 60
     },
     carousel: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 5,
         height: 200,
-        backgroundColor: '#f00'
+    },
+    carouselSlide: {
+        height: 200,
     },
     dataInfo: {
         padding: 10,
@@ -256,8 +318,12 @@ const styles = StyleSheet.create({
         fontWeight: '800',
     },
     descriptionLineContent: {
-        backgroundColor: '#ff0',
         height: 65,
+        overflow: 'hidden',
+    },
+    descriptionLineText: {
+        fontSize: 11,
+        fontWeight: '500'
     },
     buttonLine: {
         flexDirection: 'row',
