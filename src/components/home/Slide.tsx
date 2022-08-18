@@ -12,6 +12,10 @@ const Slide = ({ data, shouldPlay }: { data: any, shouldPlay: boolean }) => {
     const [unit, setUnit] = useState<string>('');
     const [isVisible, setIsVisible] = useState<boolean>(false);
 
+    const setCart = () => {
+        setIsAddedToCart(true);
+    }
+
     return (
         <View
             style={styles.container}
@@ -53,12 +57,10 @@ const Slide = ({ data, shouldPlay }: { data: any, shouldPlay: boolean }) => {
             {
                 !isAddedToCart ?
                     <View style={styles.cart}>
-                        <View style={styles.avatar}>
-                            <Image
-                                source={require('../../../assets/adaptive-icon.png')}
-                                style={{ width: '100%', height: '100%', borderRadius: 100, borderColor: '#fc03ba', borderWidth: 2 }}
-                            />
-                        </View>
+                        <Image
+                            source={require('../../../assets/adaptive-icon.png')}
+                            style={styles.avatar}
+                        />
                         <View style={styles.info}>
                             <Text style={styles.text} >
                                 $140
@@ -66,8 +68,8 @@ const Slide = ({ data, shouldPlay }: { data: any, shouldPlay: boolean }) => {
                             <Text style={styles.text}>
                                 #Ediuk SKAll
                             </Text>
-                            <Text style={styles.text}>
-                                This is Line 32323232323232323223232232323232232323
+                            <Text style={styles.commentText}>
+                                Top Note : This is ...
                             </Text>
                         </View>
                         <TouchableOpacity style={styles.button} onPress={() => {
@@ -83,17 +85,16 @@ const Slide = ({ data, shouldPlay }: { data: any, shouldPlay: boolean }) => {
                     <View style={styles.note}>
                         <Image
                             source={require('../../../assets/checked.png')}
-                            style={{
-                                width: 35,
-                                height: 35
-                            }}
+                            style={{ width: 35, height: 35 }}
                         />
                         <Text style={styles.noteText}>
                             Added to cart
                         </Text>
                     </View>
             }
-            <AddCart isVisible={isVisible} />
+            <AddCart isVisible={isVisible} setCart={setCart} setVisibleState={() => {
+                setIsVisible(false);
+            }} />
         </View>
     );
 }
@@ -146,7 +147,9 @@ const styles = StyleSheet.create({
         borderRadius: 20
     },
     avatar: {
-        // backgroundColor: '#0f0',
+        borderRadius: 100,
+        borderColor: '#fc03ba',
+        borderWidth: 2,
         justifyContent: 'center',
         alignItems: 'center',
         margin: 5,
@@ -157,7 +160,9 @@ const styles = StyleSheet.create({
         flex: 1,
         color: '#ffffff',
         margin: 10,
-        height: '100%'
+        height: '100%',
+        justifyContent: 'center',
+        paddingLeft: 10,
     },
     text: {
         color: '#ffffff',
@@ -166,6 +171,12 @@ const styles = StyleSheet.create({
         // textOverflow: 'ellipsis'
         // overflow: hidden,
         // text-overflow: 'ellipsis'
+    },
+    commentText: {
+        marginTop: 3,
+        fontSize: 12,
+        fontWeight: '700',
+        color: '#fff'
     },
     button: {
         backgroundColor: '#fc03ba',
