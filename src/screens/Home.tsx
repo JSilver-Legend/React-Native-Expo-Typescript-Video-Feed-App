@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import React, { useEffect, useState } from 'react';
-import { FlatList, View, Text } from 'react-native';
+import { FlatList } from 'react-native';
 import { getAllVideos } from '../api/video';
 import Slide from '../components/home/Slide';
 
@@ -60,7 +60,6 @@ export const Home = () => {
             for (let index = 0; index < 10; index++) {
                 slideList?.pop();
             }
-            console.log('length-->', slideList.length);
         }
     }
 

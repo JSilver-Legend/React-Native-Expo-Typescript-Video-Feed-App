@@ -3,7 +3,7 @@ import { View, Dimensions, StyleSheet, Image, Text, TouchableOpacity } from 'rea
 import { ResizeMode, Video } from 'expo-av';
 import AddCart from './AddCart';
 
-const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
+const { height: windowHeight } = Dimensions.get("window");
 
 const Slide = ({ data, shouldPlay }: { data: any, shouldPlay: boolean }) => {
 

@@ -1,5 +1,5 @@
-import React, { useRef, useEffect, useCallback, useState } from 'react';
-import { View, Button, Text, Image, TouchableOpacity, StyleSheet, ListRenderItem, SafeAreaView } from 'react-native';
+import React, { useRef, useEffect } from 'react';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import Carousel from 'react-native-banner-carousel-updated';
 import RBSheet from "react-native-raw-bottom-sheet";
 
