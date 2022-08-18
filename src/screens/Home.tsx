@@ -24,9 +24,6 @@ export const Home = () => {
         addPart('first');
     }, []);
 
-    useEffect(() => {
-        console.log('slideList-->', slideList?.length);
-    }, [slideList]);
 
     const addPart = async (type: string) => {
         if (type === 'first') {
@@ -64,7 +61,6 @@ export const Home = () => {
     }
 
     useEffect(() => {
-        console.log('currentSlide-->', currentSlide);
         if (currentSlide === (slideList.length - 1) && currentPage < lastPage) {
             addPart('next');
         } else if (currentSlide === 0 && currentPage !== 1) {
